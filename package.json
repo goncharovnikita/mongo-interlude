@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/GoncharovNikita/mongo-interlude#readme",
   "devDependencies": {
+    "babel-core": "^6.26.0",
     "chai": "^4.1.1",
     "mocha": "^3.5.0",
     "mongoose": "^4.11.7"
