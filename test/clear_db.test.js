@@ -43,23 +43,16 @@ module.exports = () => {
     expect(result.errors).to.be.an('array')
   })
 
-  it ('should throw an no options object Error', async () => {
+  it ('should throw an no options object Error', done => {
     const { clearDb } = require('../index')()
-    try {
-      await clearDb()
-    } catch(e) {
-      expect(e).to.not.be.equal(null)
-      expect(e).to.be.an('error')
-    }
+    const InvalidOptionsError = require('../bin/_errors')
+    expect(Promise.resolve(clearDb())).to.be.rejectedWith(InvalidOptionsError)
+    done()
   })
 
-  it ('should throw no mongoose error', async () => {
+  it ('should throw no mongoose error', done => {
     const { clearDb } = require('../index')()
-    try {
-      clearDb({})
-    } catch (e) {
-      expect(e).to.not.be.equal(null)
-      expect(e).to.be.an('error')
-    }
+    expect(Promise.resolve(clearDb({}))).to.be.rejectedWith(Error)
+    done()
   })
 }
