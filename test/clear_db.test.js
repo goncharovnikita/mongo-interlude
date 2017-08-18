@@ -1,6 +1,9 @@
 // CLEAR DB MODULE TEST
 
-const { expect, assert } = require('chai')
+const chai = require('chai')
+const chaiAsPromised = require('chai-as-promised')
+chai.use(chaiAsPromised)
+const { assert, expect } = chai
 const { stub }   = require('sinon')
 
 module.exports = () => {
@@ -35,7 +38,28 @@ module.exports = () => {
     })
 
     const result = await clearDb({ mongoose: fakeMongoose })
-    expect(result).to.be.a('string')
-    assert.equal('Model someModel successfully dropped!', result)
+    expect(result).to.be.a('object')
+    expect(result.success).to.be.an('array')
+    expect(result.errors).to.be.an('array')
+  })
+
+  it ('should throw an no options object Error', async () => {
+    const { clearDb } = require('../index')()
+    try {
+      await clearDb()
+    } catch(e) {
+      expect(e).to.not.be.equal(null)
+      expect(e).to.be.an('error')
+    }
+  })
+
+  it ('should throw no mongoose error', async () => {
+    const { clearDb } = require('../index')()
+    try {
+      clearDb({})
+    } catch (e) {
+      expect(e).to.not.be.equal(null)
+      expect(e).to.be.an('error')
+    }
   })
 }
