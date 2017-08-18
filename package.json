@@ -1,0 +1,33 @@
+{
+  "name": "mongo-interlude",
+  "version": "0.0.3",
+  "description": "Lightweight npm package to provide cleaning operations with mongo.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test --timeout 10000 --compilers js:babel-core/register"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GoncharovNikita/mongo-interlude.git"
+  },
+  "keywords": [
+    "mongo",
+    "cleaner",
+    "after_test",
+    "hooks"
+  ],
+  "author": "Goncharov Nikita",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GoncharovNikita/mongo-interlude/issues"
+  },
+  "homepage": "https://github.com/GoncharovNikita/mongo-interlude#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "chai": "^4.1.1",
+    "chai-as-promised": "^7.1.1",
+    "mocha": "^3.5.0",
+    "mongoose": "^4.11.7",
+    "sinon": "^3.2.0"
+  }
+}
