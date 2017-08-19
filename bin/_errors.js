@@ -5,7 +5,7 @@ function InvalidOptionsError(property) {
   this.name = "InvalidOptionsError";
 
   this.property = property;
-  this.message = "Options require " + property + " to proceed."
+  this.message = "clearDb require " + property + " to proceed."
 
   if (Error.captureStackTrace) {
     Error.captureStackTrace(this, InvalidOptionsError);

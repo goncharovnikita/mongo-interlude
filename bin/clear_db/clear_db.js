@@ -1,8 +1,9 @@
 // CLEAR DB MODULE
 
-const { InvalidOptionsError } = require('./_errors')
+const InvalidOptionsError = require('../_errors')
+const { whitelist }       = require('./whitelist')
 
-module.exports = async (opts) => {
+const clearDb = async (opts) => {
 
   if (typeof opts !== 'object' || !opts) throw new InvalidOptionsError('options object')
   const { silent = false, mongoose } = opts
@@ -10,25 +11,27 @@ module.exports = async (opts) => {
   let RESULT    =  false
   let CLEAR_BY  =  null
   let ERROR     =  null
+
   if (mongoose) CLEAR_BY = "mongoose"
 
   const clearByMongoose = async (mongoose) => {
     const success = []
-    const errors = []
+    const errors  = []
 
     Object.keys(mongoose.connection.collections).forEach( async (key) => {
       const model = mongoose.connection.collections[key]
-      if (model.name === 'identitycounters') return
+      if (whitelist.indexOf(key) !== -1) return
       try {
         await model.remove({})
         success.push(key)
-        console.log('Model ' + key + ' successfully dropped!');
+        if (!silent) console.log('Model ' + key + ' successfully cleared!');
       } catch (e) {
         const error = {}
         error[key] = new Error(e)
         errors.push(error)
-        console.log('Error occured om model ' + key);
+        if (!silent) console.log('Error occured on model ' + key);
       }
+      console.log('All models successfully cleared!');
     })
 
     return {
@@ -39,10 +42,12 @@ module.exports = async (opts) => {
 
   switch(CLEAR_BY) {
     case 'mongoose': RESULT = await clearByMongoose(mongoose); break
-    case undefined: ERROR = new Error('Mongoose adapter is undefined!'); throw ERROR
+    case null: ERROR        = new Error('Mongoose adapter is undefined!'); throw ERROR
   }
 
 
   return RESULT
 
 }
+
+module.exports = clearDb

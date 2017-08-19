@@ -1,5 +1,3 @@
 
 
-module.exports = () => {
-  return require('./bin')()
-}
+module.exports = require('./bin')

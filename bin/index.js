@@ -1,4 +1,2 @@
 
-module.exports = () => {
-  return require('./init')()
-}
+module.exports = require('./init')()
