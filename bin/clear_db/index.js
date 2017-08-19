@@ -1,5 +1,3 @@
 
 
-module.exports = () => {
-  return require('./clear_db')()
-}
+module.exports = require('./clear_db')

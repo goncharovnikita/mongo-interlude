@@ -4,17 +4,18 @@ const chai = require('chai')
 const chaiAsPromised = require('chai-as-promised')
 chai.use(chaiAsPromised)
 const { assert, expect } = chai
+const should = chai.should()
 const { stub }   = require('sinon')
 
 module.exports = () => {
   it('should get clearDb func', done => {
-    const { clearDb } = require('../index')()
+    const { clearDb } = require('../index')
     expect(clearDb).to.be.a('function')
     done()
   })
 
   it('should remove all collections from mongo by mongoose', async () => {
-    const { clearDb } = require('../index')()
+    const { clearDb } = require('../index')
     const fakeMongoose = {
       connection: {
         collections: {
@@ -43,16 +44,22 @@ module.exports = () => {
     expect(result.errors).to.be.an('array')
   })
 
-  it ('should throw an no options object Error', done => {
-    const { clearDb } = require('../index')()
+  it ('clearDb() throws InvalidOptionsError', async () => {
+    const { clearDb } = require('../index')
     const InvalidOptionsError = require('../bin/_errors')
     expect(Promise.resolve(clearDb())).to.be.rejectedWith(InvalidOptionsError)
-    done()
+    Promise.resolve(clearDb()).should.not.be.fulfilled
   })
 
-  it ('should throw no mongoose error', done => {
-    const { clearDb } = require('../index')()
-    expect(Promise.resolve(clearDb({}))).to.be.rejectedWith(Error)
-    done()
+  it ('clearDb({}) throws Error: Mongoose adapter is undefined!', async () => {
+    const { clearDb } = require('../index')
+    try {
+      const result = await clearDb({})
+      expect(result).to.be.equal(null)
+    } catch (e) {
+      expect(e).to.be.an('error')
+        .with.property('message')
+        .equal('Mongoose adapter is undefined!')
+    }
   })
 }

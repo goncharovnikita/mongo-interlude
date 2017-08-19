@@ -1,10 +1,8 @@
 // CLEAR DB MODULE
 
+const InvalidOptionsError = require('../_errors')
 
-module.exports = async (opts) => {
-
-  const  InvalidOptionsError  = require('./_errors')
-
+const clearDb = async (opts) => {
   if (typeof opts !== 'object' || !opts) throw new InvalidOptionsError('options object')
   const { silent = false, mongoose } = opts
 
@@ -48,3 +46,5 @@ module.exports = async (opts) => {
   return RESULT
 
 }
+
+module.exports = clearDb
