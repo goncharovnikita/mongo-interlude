@@ -1,11 +1,12 @@
 // CLEAR DB MODULE TEST
 
-const chai = require('chai')
-const chaiAsPromised = require('chai-as-promised')
-chai.use(chaiAsPromised)
+const chai               = require('chai')
+const chaiAsPromised     = require('chai-as-promised')
+const should             = chai.should()
 const { assert, expect } = chai
-const should = chai.should()
-const { stub }   = require('sinon')
+const { stub }           = require('sinon')
+
+chai.use(chaiAsPromised)
 
 module.exports = () => {
   it('should get clearDb func', done => {
@@ -38,7 +39,7 @@ module.exports = () => {
       })
     })
 
-    const result = await clearDb({ mongoose: fakeMongoose })
+    const result = await clearDb({ mongoose: fakeMongoose, silent: true })
     expect(result).to.be.a('object')
     expect(result.success).to.be.an('array')
     expect(result.errors).to.be.an('array')
