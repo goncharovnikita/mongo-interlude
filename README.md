@@ -1,2 +1,48 @@
 # mongo-interlude
-Lightweight npm package to provide cleaning operations with mongo easily.
+Lightweight npm package to provide cleaning operations with mongodb easily.
+
+> Core purpose of **mongo-interlude**
+> is to help developers clean-up models in mongodb after
+or even before tests, to avoid **Errors**
+
+For now, can be installed with npm:
+
+```sh
+$ npm install mongo-interlude
+```
+... and for dev dependency:
+
+```sh
+$ npm install -D mongo-interlude
+```
+
+### Usage
+
+For version 0.1.0 available ```cleanDb ``` module, which removes all data from all your models. Require ```mongoose ``` adapter.
+```javascript
+// require main module
+const mongoInterlude = require('mongo-interlude')
+
+// require clearDb function
+// notice that clearDb returns Promise
+const clearDb = mongoInterlude.clearDb
+
+...
+// e.g. you have after tests function:
+after(async () => {
+    await clearDb({ mongoose: yourMongooseAdapter, silent: true })
+})
+...
+```
+
+```clearDb ``` also return `Object`, which contains `Success` and `Errors` Arrays:
+```javascript
+...
+const result = await clearDb({ mongoose: yourMongooseAdapter })
+console.log(result)
+/*
+success: [...], <- contains names of successfully cleared models
+errors: [...] <- contains objects with key of failed model and value of error
+*/
+...
+```
