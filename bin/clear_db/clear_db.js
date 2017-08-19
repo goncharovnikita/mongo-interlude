@@ -31,9 +31,10 @@ const clearDb = async (opts) => {
         errors.push(error)
         if (!silent) console.log('Error occured on model ' + key);
       }
-      console.log('All models successfully cleared!');
     })
 
+    console.log('All models successfully cleared!');
+    
     return {
       success,
       errors

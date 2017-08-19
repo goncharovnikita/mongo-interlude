@@ -1,6 +1,6 @@
 {
   "name": "mongo-interlude",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Lightweight npm package to provide cleaning operations with mongo.",
   "main": "index.js",
   "scripts": {
