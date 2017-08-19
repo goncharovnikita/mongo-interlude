@@ -1,5 +1,6 @@
 # Mongo-Interlude
 [![Build Status](https://travis-ci.org/GoncharovNikita/mongo-interlude.svg?branch=master)](https://travis-ci.org/GoncharovNikita/mongo-interlude)
+
 Lightweight npm package to provide cleaning operations with mongodb easily.
 
 > Core purpose of **mongo-interlude**
