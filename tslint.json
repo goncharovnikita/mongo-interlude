@@ -1,0 +1,7 @@
+{
+    "rules": {
+        "no-trailing-whitespace": true,
+        "semicolon": true,
+        "newline-before-return": true
+    }
+}

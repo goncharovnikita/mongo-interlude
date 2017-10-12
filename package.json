@@ -1,10 +1,11 @@
 {
   "name": "mongo-interlude",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Lightweight npm package to provide cleaning operations with mongo.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test --timeout 10000 --compilers js:babel-core/register"
+    "test": "mocha --timeout 10000 -r ts-node/register test/main.spec.ts",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,14 @@
     "chai-as-promised": "^7.1.1",
     "mocha": "^3.5.0",
     "mongoose": "^4.11.7",
-    "sinon": "^3.2.0"
+    "sinon": "^3.2.0",
+    "ts-node": "^3.3.0"
+  },
+  "dependencies": {
+    "@types/chai": "^4.0.4",
+    "@types/chai-as-promised": "^7.1.0",
+    "@types/mocha": "^2.2.43",
+    "@types/node": "^8.0.34",
+    "typescript": "^2.5.3"
   }
 }
