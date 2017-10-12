@@ -37,8 +37,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var _errors_1 = require("../_errors");
-var Whitelist = require("./whitelist");
-var whitelist = Whitelist['whitelist'];
+var whitelist_1 = require("./whitelist");
+var wl = whitelist_1.default['whitelist'];
 exports.clearDb = function (opts) { return __awaiter(_this, void 0, void 0, function () {
     function clearByMongoose(mongoose) {
         return __awaiter(this, void 0, void 0, function () {
@@ -53,7 +53,7 @@ exports.clearDb = function (opts) { return __awaiter(_this, void 0, void 0, func
                         switch (_a.label) {
                             case 0:
                                 model = mongoose.connection.collections[key];
-                                if (whitelist.indexOf(key) !== -1)
+                                if (wl.indexOf(key) !== -1)
                                     return [2];
                                 _a.label = 1;
                             case 1:
@@ -75,7 +75,8 @@ exports.clearDb = function (opts) { return __awaiter(_this, void 0, void 0, func
                         }
                     });
                 }); });
-                console.log('All models successfully cleared!');
+                if (!silent)
+                    console.log('All models successfully cleared!');
                 return [2, {
                         success: success,
                         errors: errors
@@ -83,13 +84,17 @@ exports.clearDb = function (opts) { return __awaiter(_this, void 0, void 0, func
             });
         });
     }
-    var _a, silent, mongoose, RESULT, CLEAR_BY, ERROR, _b;
+    var silentTimeout, _a, silent, mongoose, whitelist, RESULT, CLEAR_BY, ERROR, _b;
     return __generator(this, function (_c) {
         switch (_c.label) {
             case 0:
+                silentTimeout = 5000;
                 if (typeof opts !== 'object' || !opts)
                     throw new _errors_1.InvalidOptionsError('options object');
-                _a = opts.silent, silent = _a === void 0 ? false : _a, mongoose = opts.mongoose;
+                _a = opts.silent, silent = _a === void 0 ? false : _a, mongoose = opts.mongoose, whitelist = opts.whitelist;
+                if (whitelist) {
+                    wl.concat(whitelist);
+                }
                 CLEAR_BY = null;
                 ERROR = null;
                 if (mongoose)
