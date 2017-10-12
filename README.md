@@ -20,7 +20,7 @@ $ npm install -D mongo-interlude
 
 ### Usage
 
-For version 0.1.* available ```clearDb ``` module, which removes all data from all your models. Require ```mongoose ``` adapter.
+For now available ```clearDb ``` module, which removes all data from all your models. Require ```mongoose ``` adapter.
 ```javascript
 // require main module
 const mongoInterlude = require('mongo-interlude')
